@@ -19,13 +19,13 @@ const AdminSignup = async (req, res) => {
 
         jwt.sign({ result }, KEY, { expiresIn: '2h' }, (err, token) => {
             if (err) {
-                res.status(500).send("Something went wrong, please try again...");
+                return res.status(500).send("Something went wrong, please try again...");
             } else {
-                res.status(200).send({ result, auth: token });
+                return res.status(200).send({ result, auth: token });
             }
         });
     } catch (error) {
-        res.status(500).send("Something went wrong, please try again...");
+        return res.status(500).send("Something went wrong, please try again...");
     }
 };
 
@@ -45,17 +45,17 @@ const AdminLogin = async (req, res) => {
                     if (err) {
                         res.status(500).send("Something went wrong, please try again...");
                     } else {
-                        res.status(200).send({ user, auth: token });
+                        return res.status(200).send({ user, auth: token });
                     }
                 });
             } else {
-                res.status(400).send({ result: "Invalid credentials" });
+                return res.status(400).send({ result: "Invalid credentials" });
             }
         } else {
             res.status(400).send({ result: "User not found" });
         }
     } else {
-        res.status(400).send({ result: "Please provide email and password" });
+        return res.status(400).send({ result: "Please provide email and password" });
     }
 }
 
